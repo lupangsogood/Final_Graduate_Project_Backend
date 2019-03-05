@@ -20,7 +20,7 @@ given as input.
 detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-im = imread('input1.jpg')
+im = imread('input5.jpg')
 #points = np.loadtxt('point1.txt')
 #print(points)
 
