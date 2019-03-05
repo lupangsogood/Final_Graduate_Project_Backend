@@ -27,11 +27,10 @@ im = imread('input5.jpg')
 height, width = im.shape[:2]
 print(im.shape[:2])
 
-gray_test = im[0,0,0]
-intensity = (gray_test * 1.25) /1000
-print(intensity)
+
 
 imOrg = im.copy()
+imRoi = im.copy()
 gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
 rects = detector(gray, 1)
 
@@ -62,6 +61,19 @@ for (i,rect) in enumerate(rects):
     h1 =(shape.part(35).x+int(halfFace))/1.7
     h2 =shape.part(35).y
  
+
+    ROI = imRoi[int(shape.part(28).y):int(h2+(x2/5)),int(shape.part(37).x):int(w1)]
+
+    
+    gray_test = ROI[0,0,0]
+    #gray_test_2 = im[0,0,0]
+    #intensity2 = (gray_test_2*1.5)/1000
+    intensity = (gray_test*1.5)/1000
+    print(intensity)
+  
+    cv2.imshow("ROI",ROI)
+    cv2.waitKey(0)
+
 #print(x2,y2,w2,h2)
     #print(shape.part(0).x,shape.part(16).x)
     print(halfFace)
