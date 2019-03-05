@@ -66,8 +66,8 @@ for (i,rect) in enumerate(rects):
 
     
     gray_test = ROI[0,0,0]
-    gray_test_2 = im[0,0,0]
-    intensity2 = (gray_test_2*1.5)/1000
+    #gray_test_2 = im[0,0,0]
+    #intensity2 = (gray_test_2*1.5)/1000
     intensity = (gray_test*1.5)/1000
     print(intensity)
   
