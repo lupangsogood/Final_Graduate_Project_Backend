@@ -1,0 +1,10 @@
+README.md
+setup.py
+LipsEyeliner_Makeup/__init__.py
+LipsEyeliner_Makeup/apply_makeup.py
+LipsEyeliner_Makeup/detect_features.py
+pyvisage.egg-info/PKG-INFO
+pyvisage.egg-info/SOURCES.txt
+pyvisage.egg-info/dependency_links.txt
+pyvisage.egg-info/requires.txt
+pyvisage.egg-info/top_level.txt
