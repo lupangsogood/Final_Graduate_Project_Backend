@@ -1,0 +1,1 @@
+\Users\\ANUSIT\\Desktop\\detect-face-parts\\input.jpg')

@@ -320,4 +320,4 @@ class ApplyMakeup(DetectLandmarks):
         cv2.imwrite(file_name, self.im_copy)
         cv2.imshow("TEST",self.im_copy)
         cv2.waitKey(0)
-        return self.im_copy
+        return file_name
