@@ -117,8 +117,11 @@ class BrushMakeup_class():
             gray_test = ROI[0,0,0]
             gray_test_2 = self.im[0,0,0]
             intensity2 = (gray_test_2*1.5)/1000
-            self.intensity = (gray_test*1.5)/1000
+            self.intensity = (gray_test)/1000
+
             print(self.intensity)
+            print("--------------INTENSITY-------------")
+            print(intensity2)
 
             cv2.imshow("ROI",ROI)
             cv2.waitKey(0)
@@ -161,6 +164,9 @@ class BrushMakeup_class():
         #cv2.imshow("DISPLAY",imOrg)
         plt.imshow(self.imOrg)
         cv2.waitKey(0)
-
+        name = '_color_' + str(self.Rg) + '_' + str(self.Gg) + '_' + str(self.Bg)
+        file_name = 'output_' + name + '.jpg'
         imsave('output.jpg', self.imOrg)
         show()
+        cv2.imwrite(file_name,self.imOrg)
+        return file_name
