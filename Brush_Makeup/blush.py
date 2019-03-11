@@ -132,7 +132,11 @@ def smoothen_blush(x, y):
     imgBlur3D[:, :, 2] = imgMask
     imOrg = (imgBlur3D * im + (1 - imgBlur3D) * imOrg).astype('uint8')
 
+@staticmethod
+def 
 
+(parameter_list):
+  pass
 x, y = points[0:5, 0], points[0:5, 1]
 x, y = get_boundary_points(x, y)
 apply_blush_color()
@@ -145,6 +149,3 @@ print(imOrg.shape[0:2])
 #cv2.imshow("DISPLAY",imOrg)
 plt.imshow(imOrg)
 cv2.waitKey(0)
-
-imsave('output.jpg', imOrg)
-show()
