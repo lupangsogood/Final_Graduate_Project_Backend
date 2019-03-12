@@ -12,6 +12,6 @@ LM = LipMakeup_class()
 
 
 
-output_file1 =AM.apply_liner(path_image)
+output_file1 = AM.apply_liner(path_image)
 output_file2 = BM.apply_brush(output_file1,204,40,57)
 output_file3 = LM.apply_lipstick_func(output_file2,207,40,57)

@@ -9,15 +9,17 @@ import matplotlib.image as mpimg
 detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-im_bg = cv2.imread('Input2.jpg')
+im_bg = cv2.imread('Input1.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
 #im_fg = cv2.imread('bggray.jpg',flags=cv2.IMREAD_UNCHANGED)
 im_fg = cv2.imread('bgwhite.jpg',flags=cv2.IMREAD_UNCHANGED)
 #im_fg = cv2.resize(im_fg,(100,100))
-#COPY IM_BG TO IMORG
+
+#COPY IM_BG TO IMOrg
+imROI = im_bg.copy()
 imOrg = im_bg.copy()
 
-gray = cv2.cvtColor(imOrg,cv2.COLOR_BGR2GRAY)
+gray = cv2.cvtColor(imROI,cv2.COLOR_BGR2GRAY)
 rects = detector(gray,1)
 for (i,rect) in enumerate(rects):
     shape = predictor(gray,rect)
@@ -32,22 +34,37 @@ for (i,rect) in enumerate(rects):
     mid = shape.part(33).x-20
 
     xR = shape.part(17).x
-    yR = shape.part(19).y-10
+    yR = shape.part(19).y
     wR = shape.part(21).x
-    hR = shape.part(19).y+25
-    cv2.rectangle(imOrg,(xR,yR),(wR,hR),(255,86,30),3)
+    hR = shape.part(17).y
 
     xL = shape.part(22).x
     yL = shape.part(24).y-10
     wL = shape.part(26).x
     hL = shape.part(24).y+30
-    cv2.rectangle(imOrg,(xL,yL),(wL,hL),(255,86,30),3)
 
     #cv2.imshow("ROI",imOrg)
     #cv2.waitKey(0)
 
 #เทสตำแหน่ง width , height ของ Graphic ให้สอดคล้องกับขนาด Bound คิ้ว
-im_fg = cv2.resize(im_fg,(int((wR-xR)),int((hR-yR)*2.5)))
+#im_fg = cv2.resize(im_fg,(int((wR-xR)),int((hR-yR)*2.5)))
+
+ROI = imROI[yR:hR,xR:wR]
+mask_ROI = 255 * np.ones(ROI.shape, ROI.dtype)
+cv2.imshow("MIXED",ROI)
+cv2.waitKey(0)
+#ต้องลองเปลี่ยนค่าของ ตำแหน่งเรื่อย ๆ 
+imOrg[yR:hR,xR:wR] = mask_ROI
+cv2.imshow("MIXED",imOrg)
+cv2.waitKey(0)
+
+ROI = cv2.resize(ROI,(100,100))
+print("----------")
+print(ROI.shape[:])
+print(im_fg.shape[:])
+
+
+im_fg = cv2.resize(im_fg,(100,100))
 print(im_fg.shape[:])
 mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 
@@ -55,15 +72,17 @@ mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 width, height, channels = im_bg.shape
 #ลองเปลี่ยนจากขนาดของหน้าเป็นขนาด ROI คิ้ว
 center = (int(height/2), int(width/2))
-point = (int((xR+wR)/2),int((yR+hR)/1.975))
+point = (int((xR+wR)/2),int((yR+hR)/1.97))
 #print(center)
 print(point)
-
-
 # Seamlessly clone src into dst and put the results in output
 mixed_clone = cv2.seamlessClone(im_fg, im_bg, mask,point, cv2.MIXED_CLONE)
 #TEST POINT BY CIRCLE
 mixed_clone = cv2.circle(mixed_clone,point,3,(255,0,0),-1)
+#cv2.rectangle(mixed_clone,(xR,yR),(wR,hR),(255,86,30),3)
+#cv2.rectangle(imOrg,(xL,yL),(wL,hL),(255,86,30),3)
+
+
 # Write results
 cv2.imshow("MIXED",mixed_clone)
 cv2.waitKey(0)
