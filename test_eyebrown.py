@@ -9,7 +9,7 @@ import matplotlib.image as mpimg
 detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-im_bg = cv2.imread('Input3.jpg')
+im_bg = cv2.imread('Input2.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
 #im_fg = cv2.imread('bggray.jpg',flags=cv2.IMREAD_UNCHANGED)
 im_fg = cv2.imread('bgwhite.jpg',flags=cv2.IMREAD_UNCHANGED)
@@ -34,7 +34,7 @@ for (i,rect) in enumerate(rects):
     xR = shape.part(17).x
     yR = shape.part(19).y-10
     wR = shape.part(21).x
-    hR = shape.part(19).y+30
+    hR = shape.part(19).y+25
     cv2.rectangle(imOrg,(xR,yR),(wR,hR),(255,86,30),3)
 
     xL = shape.part(22).x
@@ -47,7 +47,7 @@ for (i,rect) in enumerate(rects):
     #cv2.waitKey(0)
 
 #เทสตำแหน่ง width , height ของ Graphic ให้สอดคล้องกับขนาด Bound คิ้ว
-im_fg = cv2.resize(im_fg,(int(wR/3),int(hR/3)))
+im_fg = cv2.resize(im_fg,(int((wR-xR)),int((hR-yR)*2.5)))
 print(im_fg.shape[:])
 mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 
@@ -55,7 +55,7 @@ mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 width, height, channels = im_bg.shape
 #ลองเปลี่ยนจากขนาดของหน้าเป็นขนาด ROI คิ้ว
 center = (int(height/2), int(width/2))
-point = (int((xR+wR)/2),int((yR+hR)/2))
+point = (int((xR+wR)/2),int((yR+hR)/1.975))
 #print(center)
 print(point)
 
