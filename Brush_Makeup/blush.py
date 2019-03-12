@@ -111,99 +111,12 @@ class BrushMakeup_class():
             h2 =shape.part(35).y
 
 
-            ROI = imRoi[int(shape.part(28).y):int(h2+(x2/5)),int(shape.part(37).x):int(w1)]
+            ROI = imRoi[int(shape.part(28).y):int(shape.part(28).y+100),int(shape.part(2).x):int(w1)]
 
-    
-<<<<<<< HEAD
-    gray_test = ROI[0,0,0]
-    #gray_test_2 = im[0,0,0]
-    #intensity2 = (gray_test_2*1.5)/1000
-    intensity = (gray_test*1.5)/1000
-    print(intensity)
-  
-    cv2.imshow("ROI",ROI)
-    cv2.waitKey(0)
-
-#print(x2,y2,w2,h2)
-    #print(shape.part(0).x,shape.part(16).x)
-    print(halfFace)
-    print(heightFace)
-    print(x1,x2)
-    print(y1,y2)
-    print(w1,w2)
-    print(h1,h2)
-
-points = np.array([[x1,x2],[y1,y2],[w1,w2],[h1,h2]])
-
-#cv2.circle(im,(int(x2),int(test)),3,(0, 255, 0), -1)
-cv2.circle(im,(int(x1),int(x2)),3,(0, 255, 0), -1)
-cv2.circle(im,(y1,int(y2)),3,(255, 0, 0), -1)
-
-cv2.circle(im,(w1,int(w2)),3,(255, 0, 255), -1)
-
-cv2.circle(im,(int(h1),h2),3,(0, 0, 255), -1)
-
-#cv2.circle(im,(464,522),3,(0, 0, 255), -1)
-
- 
-cv2.imshow("display",im)
-cv2.waitKey(0)
-
-def get_boundary_points(x, y):
-    tck, u = interpolate.splprep([x, y], s=0, per=1)
-    unew = np.linspace(u.min(), u.max(), 1000)
-    xnew, ynew = interpolate.splev(unew, tck, der=0)
-    tup = c_[xnew.astype(int), ynew.astype(int)].tolist()
-    coord = list(set(tuple(map(tuple, tup))))
-    coord = np.array([list(elem) for elem in coord])
-    return np.array(coord[:, 0], dtype=np.int32), np.array(coord[:, 1], dtype=np.int32)
-
-
-def apply_blush_color(r=Rg, g=Gg, b=Bg):
-    global im
-    val = color.rgb2lab((im / 255.)).reshape(width * height, 3)
-    L, A, B = mean(val[:, 0]), mean(val[:, 1]), mean(val[:, 2])
-    L1, A1, B1 = color.rgb2lab(np.array((r / 255., g / 255., b / 255.)).reshape(1, 1, 3)).reshape(3, )
-    ll, aa, bb = (L1 - L) * intensity, (A1 - A) * intensity, (B1 - B) * intensity
-    val[:, 0] = np.clip(val[:, 0] + ll, 0, 100)
-    val[:, 1] = np.clip(val[:, 1] + aa, -127, 128)
-    val[:, 2] = np.clip(val[:, 2] + bb, -127, 128)
-    im = color.lab2rgb(val.reshape(height, width, 3)) * 255
-
-
-def smoothen_blush(x, y):
-    global imOrg
-    imgBase = zeros((height, width))
-    cv2.fillConvexPoly(imgBase, np.array(c_[x, y], dtype='int32'), 1)
-    imgMask = cv2.GaussianBlur(imgBase, (51, 51), 0)
-    imgBlur3D = np.ndarray([height, width, 3], dtype='float')
-    imgBlur3D[:, :, 0] = imgMask
-    imgBlur3D[:, :, 1] = imgMask
-    imgBlur3D[:, :, 2] = imgMask
-    imOrg = (imgBlur3D * im + (1 - imgBlur3D) * imOrg).astype('uint8')
-
-@staticmethod
-def 
-
-(parameter_list):
-  pass
-x, y = points[0:5, 0], points[0:5, 1]
-x, y = get_boundary_points(x, y)
-apply_blush_color()
-smoothen_blush(x, y)
-smoothen_blush(2 * mid * ones(len(x)) - x, y)
-
-figure()
-print("TEST")
-print(imOrg.shape[0:2])
-#cv2.imshow("DISPLAY",imOrg)
-plt.imshow(imOrg)
-cv2.waitKey(0)
-=======
             gray_test = ROI[0,0,0]
             gray_test_2 = self.im[0,0,0]
-            intensity2 = (gray_test_2*1.5)/1000
-            self.intensity = (gray_test)/1000
+            intensity2 = (gray_test_2*2)/1000
+            self.intensity = (gray_test*1.15)/1000
 
             print(self.intensity)
             print("--------------INTENSITY-------------")
@@ -254,7 +167,6 @@ cv2.waitKey(0)
         file_name = 'output_' + name + '.jpg'
         imsave('output.jpg', self.imOrg)
         show()
-        imOrg = cv2.cvtColor(imOrg,cv2.COLOR_BGR2RGB)
+        imOrg = cv2.cvtColor(self.imOrg,cv2.COLOR_BGR2RGB)
         cv2.imwrite(file_name,self.imOrg)
         return file_name
->>>>>>> 49008cc9e7ac899eea2d05a8c1a71f5e4980007a

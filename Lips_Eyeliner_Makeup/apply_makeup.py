@@ -12,7 +12,7 @@ import scipy.interpolate
 import cv2
 import numpy as np
 from skimage import color
-from  detect_features import DetectLandmarks
+from Lips_Eyeliner_Makeup.detect_features import DetectLandmarks
 
 
 class ApplyMakeup(DetectLandmarks):
