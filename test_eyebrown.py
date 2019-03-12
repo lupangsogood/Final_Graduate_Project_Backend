@@ -10,6 +10,7 @@ detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 dst = cv2.imread('../FILE_OUTPUT_color_207_40_57.jpg')
 src = cv2.imread('eyebrowL.png')
 
@@ -31,6 +32,8 @@ cv2.waitKey(0)
 
 imOrg = img.copy()
 =======
+=======
+>>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
 im_bg = cv2.imread('../FILE_OUTPUT_color_207_40_57.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
 #im_fg = cv2.imread('bggray.jpg',flags=cv2.IMREAD_UNCHANGED)
@@ -38,6 +41,9 @@ im_fg = cv2.imread('bgwhite.jpg',flags=cv2.IMREAD_UNCHANGED)
 im_fg = cv2.resize(im_fg,(100,100))
 #COPY IM_BG TO IMORG
 imOrg = im_bg.copy()
+<<<<<<< HEAD
+>>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
+=======
 >>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
 gray = cv2.cvtColor(imOrg,cv2.COLOR_BGR2GRAY)
 rects = detector(gray,1)
@@ -58,7 +64,10 @@ for (i,rect) in enumerate(rects):
     h = shape.part(19).y+30
     cv2.rectangle(imOrg,(x,y),(w,h),(255,86,30),3)
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
     
     cv2.imshow("ROI",imOrg)
     cv2.waitKey(0)
@@ -89,5 +98,8 @@ cv2.waitKey(0)
 """
 
 
+<<<<<<< HEAD
+>>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
+=======
 >>>>>>> 25cae1a2d24eff44afebee126f38092f51d257be
 """
