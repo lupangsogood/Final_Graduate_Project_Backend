@@ -16,8 +16,8 @@ im_fg = cv2.imread('bgwhite.jpg',flags=cv2.IMREAD_UNCHANGED)
 #COPY IM_BG TO IMOrg
 imROI = im_bg.copy()
 imOrg = im_bg.copy()
-imOrg = cv2.resize(imOrg,(750,1000))
 
+imOrg = cv2.resize(imOrg,(750,1000))
 gray = cv2.cvtColor(imOrg,cv2.COLOR_BGR2GRAY)
 rects = detector(gray,1)
 for (i,rect) in enumerate(rects):
@@ -65,6 +65,7 @@ im_bg = imOrg.copy()
 #-------------------------------
 
 im_fg = cv2.resize(im_fg,(int((wR+xR)*0.175),int((hR+yR)*0.15)))
+
 print(im_fg.shape[:])
 mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 
@@ -82,3 +83,4 @@ mixed_clone = cv2.seamlessClone(im_fg, im_bg, mask,point, cv2.MIXED_CLONE)
 # Write results
 cv2.imshow("MIXED",mixed_clone)
 cv2.waitKey(0)
+

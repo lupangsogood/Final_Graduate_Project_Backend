@@ -110,9 +110,9 @@ class BrushMakeup_class():
             h1 =(shape.part(35).x+int(halfFace))/1.7
             h2 =shape.part(35).y
 
-
             ROI = imRoi[int(shape.part(28).y):int(shape.part(28).y+100),int(shape.part(2).x):int(w1)]
-
+            #ROIความสูงต้องขึ้นก่อน
+            
             gray_test = ROI[0,0,0]
             gray_test_2 = self.im[0,0,0]
             intensity2 = (gray_test_2*2)/1000
