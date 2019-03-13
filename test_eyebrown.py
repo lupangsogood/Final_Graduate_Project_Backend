@@ -45,29 +45,32 @@ for (i,rect) in enumerate(rects):
     #cv2.imshow("ROI",imOrg)
     #cv2.waitKey(0)
 
-ROI = imROI[yR:hR,xR+10:wR]
-mask_ROI = 255 * np.ones(ROI.shape, ROI.dtype)
+#ROI = imROI[yR:hR,xR+10:wR]
+#mask_ROI = 255 * np.ones(ROI.shape, ROI.dtype)
 
-ROI_FOREHEAD =imOrg[yR+5:hR+5,xR:wR]
-cv2.imshow("ROI_FOREHEAD",ROI_FOREHEAD)
-cv2.waitKey(0)
+#ROI_FOREHEAD =imOrg[yR+5:hR+5,xR:wR]
+#cv2.imshow("ROI_FOREHEAD",ROI_FOREHEAD)
+#cv2.waitKey(0)
 #--------------------------------------------------------------
 #color = (ROI_FOREHEAD[0,0])
 #print(color)
 #---------------------------------------------------------------
-ROI_FOREHEAD= cv2.GaussianBlur(ROI_FOREHEAD,(3,3),5)
+#ROI_FOREHEAD= cv2.GaussianBlur(ROI_FOREHEAD,(3,3),5)
 #ROI_FOREHEAD = cv2.bilateralFilter(ROI_FOREHEAD,55,55,55)
-imOrg[yR:hR,xR:wR] = ROI_FOREHEAD
-cv2.imshow("ROI_FOREHEAD",imOrg)
-cv2.waitKey(0)
+#imOrg[yR:hR,xR:wR] = ROI_FOREHEAD
+#cv2.imshow("ROI_FOREHEAD",imOrg)
+#cv2.waitKey(0)
 #-----------เซต IM_BG ให้เท่ากับ ภาพที่เบลอคิ้วแล้ว
 im_bg = imOrg.copy()
 #-------------------------------
 
 im_fg = cv2.resize(im_fg,(int((wR+xR)*0.175),int((hR+yR)*0.15)))
-
 print(im_fg.shape[:])
 mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
+cv2.imshow("TEST_GRAY",im_fg)
+cv2.waitKey(0)
+cv2.imshow("TEST_GRAY",mask)
+cv2.waitKey(0)
 
 # The location of the center of the IM_FG in the IM_BG
 width, height, channels = im_bg.shape
