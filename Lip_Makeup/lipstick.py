@@ -55,7 +55,6 @@ class LipMakeup_class():
             #ค่าจุดกลางของหน้าเอาไว้จุดแก้มอีกหนึ่งข้าง
             mid = shape.part(33).x 
 
-
             x49 = shape.part(48).x
             y49 = shape.part(48).y
 
@@ -128,7 +127,6 @@ class LipMakeup_class():
 
         for i in range(int(o_u_l[1][0]), int(i_u_l[1][0] + 1)):
             self.ext(o_u_l[0](i), o_l[0](i) + 1, i)
-
 
         for i in range(int(i_u_l[1][0]), int(o_u_l[1][-1] + 1)):
             self.ext(o_u_l[0](i), i_u_l[0](i) + 1, i)

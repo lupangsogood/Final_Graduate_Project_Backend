@@ -72,10 +72,9 @@ class BrushMakeup_class():
         self.im = imread(imageFile)
         #points = np.loadtxt('point1.txt')
         #print(points)
-
+        self.im = cv2.resize(self.im,(750,1000))
         self.height, self.width = self.im.shape[:2]
         print(self.im.shape[:2])
-
 
 
         self.imOrg = self.im.copy()
@@ -115,8 +114,8 @@ class BrushMakeup_class():
             
             gray_test = ROI[0,0,0]
             gray_test_2 = self.im[0,0,0]
-            intensity2 = (gray_test_2*2)/1000
-            self.intensity = (gray_test*1.15)/1000
+            intensity2 = (gray_test_2*1.15)/1000
+            self.intensity = (gray_test/2)/1000
 
             print(self.intensity)
             print("--------------INTENSITY-------------")
