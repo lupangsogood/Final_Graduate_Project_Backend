@@ -66,8 +66,8 @@ class Eyebrown_Makeup_class():
         #---------------------------------------------------------------------------
         im_EyeBrown_Right = cv2.resize(im_EyeBrown_Right,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
         im_EyeBrown_LEFT = cv2.resize(im_EyeBrown_LEFT,(int(((wL-xL)+halfFace)),int(((hL-yL)+heightFace))))
-        im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(3,3),3)
-        im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(3,3),3)
+        #im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(3,3),3)
+        #im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(3,3),3)
 
 
         #---------------------------------------------------------------------------
@@ -77,7 +77,7 @@ class Eyebrown_Makeup_class():
 
         bg_width, bg_height, bg_channels = im_bg.shape
         point_RIGHT = (int((xR+wR)/2),int((yR+hR)/2))
-        point_LEFT = (int((xL+wL)/2),int((yL+hL)/1.95))
+        point_LEFT = (int((xL+wL)/2),int((yL+hL)/2))
         mixed_clone_RIGHT = cv2.seamlessClone(im_EyeBrown_Right, im_bg, mask_RIGHT,point_RIGHT, cv2.MIXED_CLONE)
         mixed_clone2_LEFT = cv2.seamlessClone(im_EyeBrown_LEFT, mixed_clone_RIGHT, mask_LEFT,point_LEFT, cv2.MIXED_CLONE)
 
@@ -93,9 +93,9 @@ class Eyebrown_Makeup_class():
         test = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
         plt.imshow(test)
         plt.show()
-        name = '__RESULT__'
-        file_name = 'Output' + name + '.jpg'
-        cv2.imwrite(file_name, self.im_copy)
+        file_name = 'FILE_OUTPUT' + '__RESULT__' + '.jpg'
+        output_image = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
+        cv2.imwrite(file_name,imOrg)
         
 
 

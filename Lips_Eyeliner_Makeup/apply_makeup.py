@@ -308,6 +308,7 @@ class ApplyMakeup(DetectLandmarks):
             `filepath (str)` of the saved output file, with applied lipstick.
 
         """
+
         self.__read_image(filename)
         liner = self.get_upper_eyelids(self.image)
         eyes_points = liner.split('\n\n')
@@ -315,5 +316,5 @@ class ApplyMakeup(DetectLandmarks):
         self.im_copy = cv2.cvtColor(self.im_copy, cv2.COLOR_BGR2RGB)
         name = '_color_' + str(self.red_l) + '_' + str(self.green_l) + '_' + str(self.blue_l)
         file_name = 'output_' + name + '.jpg'
-        #cv2.imwrite(file_name, self.im_copy)
+        cv2.imwrite(file_name, self.im_copy)
         return file_name
