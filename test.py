@@ -4,7 +4,7 @@ from Lip_Makeup.lipstick import LipMakeup_class
 import cv2
 
 
-path_image = 'C:\\Users\\ANUSIT\\Documents\\GitHub\\Project_senior\\Input1.jpg'
+path_image = 'C:\\Users\\ANUSIT\\Documents\\GitHub\\Project_senior\\input10.jpg'
 print(path_image)
 AM = ApplyMakeup()
 BM = BrushMakeup_class()

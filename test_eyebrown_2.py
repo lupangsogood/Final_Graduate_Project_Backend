@@ -10,10 +10,11 @@ detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
 #im_bg = cv2.imread('S__39534597.jpg')
-im_bg = cv2.imread('input7.jpg')
+im_bg = cv2.imread('C:\\Users\\ANUSIT\\Documents\\GitHub\\Project_senior\\input1.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
-im_fg = cv2.imread('testjangmakL1.jpg',flags=cv2.IMREAD_UNCHANGED)
+im_EyeBrown_Right = cv2.imread('C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\testjangmakL1.jpg',flags=cv2.IMREAD_UNCHANGED)
 #im_fg = cv2.imread('bgwhiteL1.jpg')
+im_EyeBrown_LEFT = cv2.imread('C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\bgwhiteL1.jpg',flags=cv2.IMREAD_UNCHANGED)
 
 
 imROI = im_bg.copy()
@@ -41,52 +42,51 @@ for (i,rect) in enumerate(rects):
     hR = shape.part(17).y
 
     xL = shape.part(22).x
-    yL = shape.part(24).y-10
+    yL = shape.part(24).y
     wL = shape.part(26).x
-    hL = shape.part(24).y+30
+    hL = shape.part(22).y
 
-ROI_BGR  = imOrg[yR:hR+4,xR:wR-10]
-ROI_GRAY = cv2.cvtColor(ROI_BGR,cv2.COLOR_BGR2GRAY)
+ROI_BGR_RIGHT  = imOrg[yR:hR+4,xR:wR-10]
+ROI_BGR_LEFT  = imOrg[yL:hL+4,xL:wL-10]
+ROI_GRAY = cv2.cvtColor(ROI_BGR_RIGHT,cv2.COLOR_BGR2GRAY)
 cv2.imshow("TEST_GRAY",ROI_GRAY)
 cv2.waitKey(0)
 
-ROI_GET_COLOR = imOrg[yR-50:hR-30,xR+20:wR]
-#cv2.imshow("ROI_GET_COLOR",ROI_GET_COLOR)
-#cv2.waitKey(0)
-### หาค่าสีของเส้นบนคิ้วแต่ละจุด
-eyeBrown_color = []
-eyeBrown_color =[(gray[shape.part(17).x,shape.part(17).y]),(gray[shape.part(18).x,shape.part(18).y]),(gray[shape.part(19).x,shape.part(19).y]),(gray[shape.part(20).x,shape.part(20).y]),(gray[shape.part(21).x,shape.part(21).y])]
-BGR_AVG = sum (eyeBrown_color)/len(eyeBrown_color)
-print (BGR_AVG)
-
-###ส่วนจัดการลูป REPLACE COLOR PIXEL
-get_color = (ROI_GET_COLOR[25,25])
-#print(get_color)
-height,width = ROI_BGR.shape[:2]
-print ("WIDTH,HEIGHT = ",width,height)
-
-
-#cv2.imshow("ROI_GRAY",imOrg)
-#cv2.waitKey(0)
 im_bg = imOrg.copy()
 #---------------------------------------------------------------------------
-im_fg = cv2.resize(im_fg,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
-print ("FACE WIDTH = ",im_fg.shape[:2])
-#im_fg= cv2.GaussianBlur(im_fg,(1,1),5)
-#im_fg = cv2.resize(im_fg,(100,100))
-mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
+#ส่วนจัดการขนาดและ SMOOTH
+#---------------------------------------------------------------------------
+im_EyeBrown_Right = cv2.resize(im_EyeBrown_Right,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
+im_EyeBrown_LEFT = cv2.resize(im_EyeBrown_LEFT,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
+im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(1,1),0)
+im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(1,1),0)
+
+
+#---------------------------------------------------------------------------
+#CREAE MASK AND SEAMLESSCLONE
+mask_RIGHT = 255 * np.ones(im_EyeBrown_Right.shape, im_EyeBrown_Right.dtype)
+mask_LEFT = 255 * np.ones(im_EyeBrown_LEFT.shape, im_EyeBrown_LEFT.dtype)
 
 bg_width, bg_height, bg_channels = im_bg.shape
 #center = (int(bg_height/2), int(bg_width/2))
-point = (int((xR+wR)/2),int((yR+hR)/2))
+point_RIGHT = (int((xR+wR)/2),int((yR+hR)/2))
+point_LEFT = (int((xL+wL)/2),int((yL+hL)/2))
 #print(center)
 #print(point)
-mixed_clone = cv2.seamlessClone(im_fg, im_bg, mask,point, cv2.MIXED_CLONE)
+mixed_clone_RIGHT = cv2.seamlessClone(im_EyeBrown_Right, im_bg, mask_RIGHT,point_RIGHT, cv2.MIXED_CLONE)
+mixed_clone2_LEFT = cv2.seamlessClone(im_EyeBrown_LEFT, mixed_clone_RIGHT, mask_LEFT,point_LEFT, cv2.MIXED_CLONE)
+
+output_image = mixed_clone2_LEFT.copy()
 #mixed_clone_2 = cv2.seamlessClone(im_fg, imOrg, mask,point, cv2.MIXED_CLONE)
 print ("XR = , YR  = ,WR = ,HR = ",xR,yR,wR,hR)
-cv2.circle(mixed_clone,point, 5, (0,255,0), -1)
-cv2.imshow("ROI_GRAY",mixed_clone)
+#print ("HEIGHT,WIDTH = " ,output_image.shape[:2])
+
+
+cv2.circle(output_image,point_RIGHT, 5, (0,255,0), -1)
+cv2.circle(output_image,point_LEFT, 5, (0,255,0), -1)
+cv2.imshow("ROI_GRAY",output_image)
 cv2.waitKey(0)
+
 
 ###---------ทดสอบการ REPLACE สี
 """
@@ -100,4 +100,17 @@ for w in range(width):
         if color_gray < (BGR_AVG/2):
             print("CHECKED")
             ROI_BGR[h,w] = get_color
+"""
+"""
+### หาค่าสีของเส้นบนคิ้วแต่ละจุด
+eyeBrown_color = []
+eyeBrown_color =[(gray[shape.part(17).x,shape.part(17).y]),(gray[shape.part(18).x,shape.part(18).y]),(gray[shape.part(19).x,shape.part(19).y]),(gray[shape.part(20).x,shape.part(20).y]),(gray[shape.part(21).x,shape.part(21).y])]
+BGR_AVG = sum (eyeBrown_color)/len(eyeBrown_color)
+print (BGR_AVG)
+
+###ส่วนจัดการลูป REPLACE COLOR PIXEL
+get_color = (ROI_GET_COLOR[25,25])
+#print(get_color)
+height,width = ROI_BGR.shape[:2]
+print ("WIDTH,HEIGHT = ",width,height)
 """
