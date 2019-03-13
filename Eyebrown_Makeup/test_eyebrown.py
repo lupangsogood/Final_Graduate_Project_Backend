@@ -9,7 +9,7 @@ import matplotlib.image as mpimg
 detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-im_bg = cv2.imread('Input6.jpg')
+im_bg = cv2.imread('Input3.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
 im_fg = cv2.imread('bgwhite.jpg',flags=cv2.IMREAD_UNCHANGED)
 
@@ -54,12 +54,13 @@ for (i,rect) in enumerate(rects):
 #--------------------------------------------------------------
 #color = (ROI_FOREHEAD[0,0])
 #print(color)
+#img[:] = color 
 #---------------------------------------------------------------
 #ROI_FOREHEAD= cv2.GaussianBlur(ROI_FOREHEAD,(3,3),5)
-#ROI_FOREHEAD = cv2.bilateralFilter(ROI_FOREHEAD,55,55,55)
-#imOrg[yR:hR,xR:wR] = ROI_FOREHEAD
-#cv2.imshow("ROI_FOREHEAD",imOrg)
-#cv2.waitKey(0)
+ROI_FOREHEAD = cv2.bilateralFilter(ROI_FOREHEAD,55,55,55)
+imOrg[yR:hR,xR:wR] = ROI_FOREHEAD
+cv2.imshow("ROI_FOREHEAD",imOrg)
+cv2.waitKey(0)
 #-----------เซต IM_BG ให้เท่ากับ ภาพที่เบลอคิ้วแล้ว
 im_bg = imOrg.copy()
 #-------------------------------
@@ -82,6 +83,7 @@ print(point)
 
 # Seamlessly clone src into dst and put the results in output
 mixed_clone = cv2.seamlessClone(im_fg, im_bg, mask,point, cv2.MIXED_CLONE)
+mixed_clone = cv2.cvtColor(mixed_clone,cv2.COLOR_BGR2GRAY)
 
 # Write results
 cv2.imshow("MIXED",mixed_clone)

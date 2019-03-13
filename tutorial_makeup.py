@@ -5,7 +5,7 @@ from Eyebrown_Makeup.eyebrown import Eyebrown_Makeup_class
 import cv2
 
 
-path_image = 'C:\\Users\\ANUSIT\\Documents\\GitHub\\Project_senior\\input9.jpg'
+path_image = 'C:\\Users\\ANUSIT\\Anaconda3\\envs\\opencv-env\\Project_senior\\Project_senior\\input1.jpg'
 print(path_image)
 path_eyebrown_R = 'C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\testjangmakR1.jpg'
 path_eyebrown_L = 'C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\testjangmakL1.jpg'
