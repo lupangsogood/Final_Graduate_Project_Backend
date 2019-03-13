@@ -55,8 +55,8 @@ class Eyebrown_Makeup_class():
             wL = shape.part(26).x
             hL = shape.part(22).y
 
-        ROI_BGR_RIGHT  = imOrg[yR:hR+4,xR:wR-10]
-        ROI_BGR_LEFT  = imOrg[yL:hL+4,xL:wL-10]
+        ROI_BGR_RIGHT  = imOrg[yR:hR,xR:wR]
+        ROI_BGR_LEFT  = imOrg[yL:hL,xL:wL]
         ROI_GRAY = cv2.cvtColor(ROI_BGR_RIGHT,cv2.COLOR_BGR2GRAY)
         cv2.imshow("TEST_GRAY",ROI_GRAY)
         cv2.waitKey(0)
@@ -66,9 +66,9 @@ class Eyebrown_Makeup_class():
         #ส่วนจัดการขนาดและ SMOOTH
         #---------------------------------------------------------------------------
         im_EyeBrown_Right = cv2.resize(im_EyeBrown_Right,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
-        im_EyeBrown_LEFT = cv2.resize(im_EyeBrown_LEFT,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
-        im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(1,1),0)
-        im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(1,1),0)
+        im_EyeBrown_LEFT = cv2.resize(im_EyeBrown_LEFT,(int(((wL-xL)+halfFace)),int(((hL-yL)+heightFace))))
+        #im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(1,1),0)
+        #im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(1,1),0)
 
 
         #---------------------------------------------------------------------------
@@ -78,7 +78,7 @@ class Eyebrown_Makeup_class():
 
         bg_width, bg_height, bg_channels = im_bg.shape
         point_RIGHT = (int((xR+wR)/2),int((yR+hR)/2))
-        point_LEFT = (int((xL+wL)/2),int((yL+hL)/2))
+        point_LEFT = (int((xL+wL)/2),int((yL+hL)/1.95))
         mixed_clone_RIGHT = cv2.seamlessClone(im_EyeBrown_Right, im_bg, mask_RIGHT,point_RIGHT, cv2.MIXED_CLONE)
         mixed_clone2_LEFT = cv2.seamlessClone(im_EyeBrown_LEFT, mixed_clone_RIGHT, mask_LEFT,point_LEFT, cv2.MIXED_CLONE)
 
@@ -90,6 +90,7 @@ class Eyebrown_Makeup_class():
 
         cv2.circle(output_image,point_RIGHT, 5, (0,255,0), -1)
         cv2.circle(output_image,point_LEFT, 5, (0,255,0), -1)
+        print("-----------------------------")
         cv2.imshow("ROI_GRAY",output_image)
         cv2.waitKey(0)
 
