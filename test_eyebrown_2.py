@@ -9,9 +9,10 @@ import matplotlib.image as mpimg
 detector  = dlib.get_frontal_face_detector()
 predictor = dlib.shape_predictor('shape_predictor_68_face_landmarks.dat')
 
-im_bg = cv2.imread('Input1.jpg')
+#im_bg = cv2.imread('S__39534597.jpg')
+im_bg = cv2.imread('input7.jpg')
 #READ IMAGE LIKE TRANsPARENT Background
-im_fg = cv2.imread('bgwhiteL1.jpg',flags=cv2.IMREAD_UNCHANGED)
+im_fg = cv2.imread('testjangmakL1.jpg',flags=cv2.IMREAD_UNCHANGED)
 #im_fg = cv2.imread('bgwhiteL1.jpg')
 
 
@@ -28,7 +29,7 @@ for (i,rect) in enumerate(rects):
     HALF_FACE_RATIO = (1.0/15)
     halfFace = (shape.part(16).x * HALF_FACE_RATIO)/3
     faceWidth = shape.part(16).x
-    FACE_HEIGHT_RATIO = (1.0 / 7)
+    FACE_HEIGHT_RATIO = (1.0 / 6)
     heightFace = shape.part(8).y * FACE_HEIGHT_RATIO
 
     #ค่าจุดกลางของหน้าเอาไว้จุดแก้มอีกหนึ่งข้าง
@@ -65,25 +66,13 @@ height,width = ROI_BGR.shape[:2]
 print ("WIDTH,HEIGHT = ",width,height)
 
 
-"""
-for w in range(width):
-    for h in range(height):
-        print (w,h)
-        # ความสูงมาก่อน
-        color_gray = ROI_GRAY[h,w]
-        #print (color_gray)
-
-        if color_gray < (BGR_AVG/2):
-            print("CHECKED")
-            ROI_BGR[h,w] = get_color
-"""
 #cv2.imshow("ROI_GRAY",imOrg)
 #cv2.waitKey(0)
 im_bg = imOrg.copy()
 #---------------------------------------------------------------------------
 im_fg = cv2.resize(im_fg,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
 print ("FACE WIDTH = ",im_fg.shape[:2])
-im_fg= cv2.GaussianBlur(im_fg,(3,3),5)
+#im_fg= cv2.GaussianBlur(im_fg,(1,1),5)
 #im_fg = cv2.resize(im_fg,(100,100))
 mask = 255 * np.ones(im_fg.shape, im_fg.dtype)
 
@@ -98,3 +87,17 @@ print ("XR = , YR  = ,WR = ,HR = ",xR,yR,wR,hR)
 cv2.circle(mixed_clone,point, 5, (0,255,0), -1)
 cv2.imshow("ROI_GRAY",mixed_clone)
 cv2.waitKey(0)
+
+###---------ทดสอบการ REPLACE สี
+"""
+for w in range(width):
+    for h in range(height):
+        print (w,h)
+        # ความสูงมาก่อน
+        color_gray = ROI_GRAY[h,w]
+        #print (color_gray)
+
+        if color_gray < (BGR_AVG/2):
+            print("CHECKED")
+            ROI_BGR[h,w] = get_color
+"""
