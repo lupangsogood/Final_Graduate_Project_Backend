@@ -25,7 +25,6 @@ class Eyebrown_Makeup_class():
         im_EyeBrown_Right = cv2.imread(imgEyeBrownRight,flags=cv2.IMREAD_UNCHANGED)
         im_EyeBrown_LEFT = cv2.imread(imgEyeBrownLeft,flags=cv2.IMREAD_UNCHANGED)
 
-
         imROI = im_bg.copy()
         imOrg = im_bg.copy()
 
@@ -58,8 +57,8 @@ class Eyebrown_Makeup_class():
         ROI_BGR_RIGHT  = imOrg[yR:hR,xR:wR]
         ROI_BGR_LEFT  = imOrg[yL:hL,xL:wL]
         ROI_GRAY = cv2.cvtColor(ROI_BGR_RIGHT,cv2.COLOR_BGR2GRAY)
-        cv2.imshow("TEST_GRAY",ROI_GRAY)
-        cv2.waitKey(0)
+        #cv2.imshow("TEST_GRAY",ROI_GRAY)
+        #cv2.waitKey(0)
 
         im_bg = imOrg.copy()
         #---------------------------------------------------------------------------
@@ -67,8 +66,8 @@ class Eyebrown_Makeup_class():
         #---------------------------------------------------------------------------
         im_EyeBrown_Right = cv2.resize(im_EyeBrown_Right,(int(((wR-xR)+halfFace)),int(((hR-yR)+heightFace))))
         im_EyeBrown_LEFT = cv2.resize(im_EyeBrown_LEFT,(int(((wL-xL)+halfFace)),int(((hL-yL)+heightFace))))
-        #im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(1,1),0)
-        #im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(1,1),0)
+        im_EyeBrown_Right= cv2.GaussianBlur(im_EyeBrown_Right,(3,3),3)
+        im_EyeBrown_LEFT= cv2.GaussianBlur(im_EyeBrown_LEFT,(3,3),3)
 
 
         #---------------------------------------------------------------------------
@@ -91,8 +90,13 @@ class Eyebrown_Makeup_class():
         cv2.circle(output_image,point_RIGHT, 5, (0,255,0), -1)
         cv2.circle(output_image,point_LEFT, 5, (0,255,0), -1)
         print("-----------------------------")
-        cv2.imshow("ROI_GRAY",output_image)
-        cv2.waitKey(0)
+        test = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
+        plt.imshow(test)
+        plt.show()
+        name = '__RESULT__'
+        file_name = 'Output' + name + '.jpg'
+        cv2.imwrite(file_name, self.im_copy)
+        
 
 
         ###---------ทดสอบการ REPLACE สี

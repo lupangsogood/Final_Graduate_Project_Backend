@@ -157,5 +157,5 @@ class LipMakeup_class():
         name = '_color_' + str(self.Rg) + '_' + str(self.Gg) + '_' + str(self.Bg)
         file_name = 'FILE_OUTPUT' + name + '.jpg'
         imOrg = cv2.cvtColor(imOrg,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,imOrg)
+        #cv2.imwrite(file_name,imOrg)
         return file_name

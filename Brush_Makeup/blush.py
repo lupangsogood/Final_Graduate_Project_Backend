@@ -167,5 +167,5 @@ class BrushMakeup_class():
         imsave('output.jpg', self.imOrg)
         show()
         imOrg = cv2.cvtColor(self.imOrg,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,self.imOrg)
+        #cv2.imwrite(file_name,self.imOrg)
         return file_name
