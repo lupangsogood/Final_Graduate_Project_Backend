@@ -95,7 +95,7 @@ class Eyebrown_Makeup_class():
         plt.show()
         file_name = 'FILE_OUTPUT' + '__RESULT__' + '.jpg'
         output_image = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,imOrg)
+        cv2.imwrite(file_name,output_image)
         
 
 

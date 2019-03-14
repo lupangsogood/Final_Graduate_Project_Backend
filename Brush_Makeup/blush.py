@@ -109,47 +109,69 @@ class BrushMakeup_class():
             h1 =(shape.part(35).x+int(halfFace))/1.7
             h2 =shape.part(35).y
 
-            ROI = imRoi[int(shape.part(28).y):int(shape.part(28).y+100),int(shape.part(2).x):int(w1)]
+            x11 = shape.part(46).x
+            x12 = shape.part(35).y
+
+            y11 = shape.part(12).x
+            y12 = shape.part(28).y
+
+            w11 = shape.part(15).x
+            w12 = shape.part(15).y
+
+            h11 = shape.part(12).x
+            h12 = shape.part(14).y
+
+
+            ROI = imRoi[int(shape.part(28).y):int(shape.part(28).y+100),int(shape.part(42).x ):int(w1)]
             #ROIความสูงต้องขึ้นก่อน
             
             gray_test = ROI[0,0,0]
             gray_test_2 = self.im[0,0,0]
             intensity2 = (gray_test_2*1.15)/1000
-            self.intensity = (gray_test/2)/1000
+            self.intensity = ((gray_test*2)/1000)
 
+            if gray_test > 190 and gray_test_2 >100:
+                self.intensity = ((gray_test*2)/1000)
+
+            else :
+                self.intensity = ((gray_test*1.35)/1000)
+
+
+            print(gray_test)
+            print(gray_test_2)
+            print("--------------INTENSITY-------------")
             print(self.intensity)
             print("--------------INTENSITY-------------")
             print(intensity2)
+           
 
-            cv2.imshow("ROI",ROI)
-            cv2.waitKey(0)
-
-
+    
             #print(x2,y2,w2,h2)
             #print(shape.part(0).x,shape.part(16).x)
+            """
             print(halfFace)
             print(heightFace)
             print(x1,x2)
             print(y1,y2)
             print(w1,w2)
             print(h1,h2)
-
-            points = np.array([[x1,x2],[y1,y2],[w1,w2],[h1,h2]])
+            """
+            #points = np.array([[x1,x2],[y1,y2],[w1,w2],[h1,h2]])
+            points = np.array([[x11,x12],[y11,y12],[w11,w12],[h11,h12]])
 
             #cv2.circle(im,(int(x2),int(test)),3,(0, 255, 0), -1)
-            cv2.circle(self.im,(int(x1),int(x2)),3,(0, 255, 0), -1)
-            cv2.circle(self.im,(y1,int(y2)),3,(255, 0, 0), -1)
-
-            cv2.circle(self.im,(w1,int(w2)),3,(255, 0, 255), -1)
-
-            cv2.circle(self.im,(int(h1),h2),3,(0, 0, 255), -1)
-
+            cv2.circle(self.im,(int(x11),int(x12)),3,(0, 255, 0), -1)
+            cv2.circle(self.im,(y11,int(y12)),3,(255, 0, 0), -1)
+            cv2.circle(self.im,(w11,int(w12)),3,(255, 0, 255), -1)
+            cv2.circle(self.im,(int(h11),h12),3,(0, 0, 255), -1)
             #cv2.circle(im,(464,522),3,(0, 0, 255), -1)
 
 
+            
             cv2.imshow("display",self.im)
             cv2.waitKey(0)
-
+            cv2.imshow("ROI",ROI)
+            cv2.waitKey(0)
         x, y = points[0:5, 0], points[0:5, 1]
         x, y = self.get_boundary_points(x, y)
         self.apply_blush_color()
