@@ -5,10 +5,19 @@ from Eyebrown_Makeup.eyebrown import Eyebrown_Makeup_class
 import cv2
 
 #------------------------- CHECK PATH AFTER GIT PULL ----------------------------------#
-path_image = 'C:\\Users\\ANUSIT\\Anaconda3\\envs\\opencv-env\\Project_senior\\Project_senior\\input14.jpg'
+#-----------------------FOR NOTE_BOOK --------------------------------------------------#
+'''
+path_image = 'C:\\Users\\ANUSIT\\Anaconda3\\envs\\opencv-env\\Project_senior\\Project_senior\\images_input\\input14.jpg'
 print(path_image)
 path_eyebrown_R = 'C:\\Users\\ANUSIT\\Anaconda3\\envs\\opencv-env\\Project_senior\\Project_senior\\drawable\\testjangmakR1.jpg'
 path_eyebrown_L = 'C:\\Users\\ANUSIT\\Anaconda3\\envs\\opencv-env\\Project_senior\\Project_senior\\drawable\\testjangmakL1.jpg'
+'''
+#----------------------------------FOR COMPUTER ----------------------------------------#
+path_image = 'C:\\Users\\ANUSIT\\Documents\\GitHub\\Project_senior\\images_intput\\input14.jpg'
+print(path_image)
+path_eyebrown_R = 'C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\testjangmakR1.jpg'
+path_eyebrown_L = 'C:\\Users\ANUSIT\\Documents\\GitHub\\Project_senior\\drawable\\testjangmakL1.jpg'
+
 
 AM = ApplyMakeup()
 BM = BrushMakeup_class()
