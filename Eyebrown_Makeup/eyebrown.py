@@ -5,6 +5,7 @@ import PIL
 from PIL import Image
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
+import os
 
 class Eyebrown_Makeup_class():
     
@@ -83,45 +84,23 @@ class Eyebrown_Makeup_class():
 
         output_image = mixed_clone2_LEFT.copy()
         #mixed_clone_2 = cv2.seamlessClone(im_fg, imOrg, mask,point, cv2.MIXED_CLONE)
-        print ("XR = , YR  = ,WR = ,HR = ",xR,yR,wR,hR)
+        #print ("XR = , YR  = ,WR = ,HR = ",xR,yR,wR,hR)
         #print ("HEIGHT,WIDTH = " ,output_image.shape[:2])
 
-
-        cv2.circle(output_image,point_RIGHT, 5, (0,255,0), -1)
-        cv2.circle(output_image,point_LEFT, 5, (0,255,0), -1)
+        UPLOAD_FOLDER = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\tmp_images'
+        ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+        #cv2.circle(output_image,point_RIGHT, 5, (0,255,0), -1)
+        #cv2.circle(output_image,point_LEFT, 5, (0,255,0), -1)
         print("-----------------------------")
-        test = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
-        plt.imshow(test)
-        plt.show()
+        #test = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
+        #plt.imshow(output_image)
+        #plt.show()
+        #cv2.imshow("TEST",output_image)
+        #cv2.waitKey(0)
         file_name = 'FILE_OUTPUT' + '__RESULT__' + '.jpg'
-        output_image = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,output_image)
+        path = os.path.join(UPLOAD_FOLDER,file_name)
+        #output_image = cv2.cvtColor(output_image,cv2.COLOR_BGR2RGB)
+        cv2.imwrite(path,output_image)
         
-
-
-        ###---------ทดสอบการ REPLACE สี
-        """
-        for w in range(width):
-            for h in range(height):
-                print (w,h)
-                # ความสูงมาก่อน
-                color_gray = ROI_GRAY[h,w]
-                #print (color_gray)
-
-                if color_gray < (BGR_AVG/2):
-                    print("CHECKED")
-                    ROI_BGR[h,w] = get_color
-        """
-        """
-        ### หาค่าสีของเส้นบนคิ้วแต่ละจุด
-        eyeBrown_color = []
-        eyeBrown_color =[(gray[shape.part(17).x,shape.part(17).y]),(gray[shape.part(18).x,shape.part(18).y]),(gray[shape.part(19).x,shape.part(19).y]),(gray[shape.part(20).x,shape.part(20).y]),(gray[shape.part(21).x,shape.part(21).y])]
-        BGR_AVG = sum (eyeBrown_color)/len(eyeBrown_color)
-        print (BGR_AVG)
-
-        ###ส่วนจัดการลูป REPLACE COLOR PIXEL
-        get_color = (ROI_GET_COLOR[25,25])
-        #print(get_color)
-        height,width = ROI_BGR.shape[:2]
-        print ("WIDTH,HEIGHT = ",width,height)
-        """
+        return path
+        

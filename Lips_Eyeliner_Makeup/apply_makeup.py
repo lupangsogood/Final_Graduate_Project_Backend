@@ -12,6 +12,7 @@ import scipy.interpolate
 import cv2
 import numpy as np
 from skimage import color
+import os
 from Lips_Eyeliner_Makeup.detect_features import DetectLandmarks
 
 
@@ -195,56 +196,6 @@ class ApplyMakeup(DetectLandmarks):
         return
 
 
-    def __add_color(self, intensity):
-        """ Adds base colour to all points on lips, at mentioned intensity. """
-        val = color.rgb2lab(
-            (self.image[self.lip_y, self.lip_x] / 255.)
-            .reshape(len(self.lip_y), 1, 3)
-        ).reshape(len(self.lip_y), 3)
-        l_val, a_val, b_val = np.mean(val[:, 0]), np.mean(val[:, 1]), np.mean(val[:, 2])
-        l1_val, a1_val, b1_val = color.rgb2lab(
-            np.array(
-                (self.red_l / 255., self.green_l / 255., self.blue_l / 255.)
-                ).reshape(1, 1, 3)
-            ).reshape(3,)
-        l_final, a_final, b_final = (l1_val - l_val) * \
-            intensity, (a1_val - a_val) * \
-            intensity, (b1_val - b_val) * intensity
-        val[:, 0] = np.clip(val[:, 0] + l_final, 0, 100)
-        val[:, 1] = np.clip(val[:, 1] + a_final, -127, 128)
-        val[:, 2] = np.clip(val[:, 2] + b_final, -127, 128)
-        self.image[self.lip_y, self.lip_x] = color.lab2rgb(val.reshape(
-            len(self.lip_y), 1, 3)).reshape(len(self.lip_y), 3) * 255
-
-
-    def __get_points_lips(self, lips_points):
-        """ Get the points for the lips. """
-        uol = []
-        uil = []
-        lol = []
-        lil = []
-        for i in range(0, 14, 2):
-            uol.append([int(lips_points[i]), int(lips_points[i + 1])])
-        for i in range(12, 24, 2):
-            lol.append([int(lips_points[i]), int(lips_points[i + 1])])
-        lol.append([int(lips_points[0]), int(lips_points[1])])
-        for i in range(24, 34, 2):
-            uil.append([int(lips_points[i]), int(lips_points[i + 1])])
-        for i in range(32, 40, 2):
-            lil.append([int(lips_points[i]), int(lips_points[i + 1])])
-        lil.append([int(lips_points[24]), int(lips_points[25])])
-        return uol, uil, lol, lil
-
-
-    def __get_curves_lips(self, uol, uil, lol, lil):
-        """ Get the outlines of the lips. """
-        uol_curve = self.__draw_curve(uol)
-        uil_curve = self.__draw_curve(uil)
-        lol_curve = self.__draw_curve(lol)
-        lil_curve = self.__draw_curve(lil)
-        return uol_curve, uil_curve, lol_curve, lil_curve
-
-
     def __fill_color(self, uol_c, uil_c, lol_c, lil_c):
         """ Fill colour in lips. """
         self.__fill_lip_lines(uol_c, uil_c)
@@ -264,39 +215,6 @@ class ApplyMakeup(DetectLandmarks):
         self.__draw_liner(left_eye, 'left')
         self.__draw_liner(right_eye, 'right')
 
-
-    def apply_lipstick(self, filename, rlips, glips, blips):
-        """
-        Applies lipstick on an input image.
-        ___________________________________
-        Args:
-            1. `filename (str)`: Path for stored input image file.
-            2. `red (int)`: Red value of RGB colour code of lipstick shade.
-            3. `blue (int)`: Blue value of RGB colour code of lipstick shade.
-            4. `green (int)`: Green value of RGB colour code of lipstick shade.
-
-        Returns:
-            `filepath (str)` of the saved output file, with applied lipstick.
-
-        """
-
-        self.red_l = rlips
-        self.green_l = glips
-        self.blue_l = blips
-        self.__read_image(filename)
-        lips = self.get_lips(self.image)
-        lips = list([point.split() for point in lips.split('\n')])
-        lips_points = [item for sublist in lips for item in sublist]
-        uol, uil, lol, lil = self.__get_points_lips(lips_points)
-        uol_c, uil_c, lol_c, lil_c = self.__get_curves_lips(uol, uil, lol, lil)
-        self.__fill_color(uol_c, uil_c, lol_c, lil_c)
-        self.im_copy = cv2.cvtColor(self.im_copy, cv2.COLOR_BGR2RGB)
-        name = 'color_' + str(self.red_l) + '_' + str(self.green_l) + '_' + str(self.blue_l)
-        file_name = 'output_' + name + '.jpg'
-        cv2.imwrite(file_name, self.im_copy)
-        return file_name
-
-
     def apply_liner(self, filename):
         """
         Applies lipstick on an input image.
@@ -314,7 +232,10 @@ class ApplyMakeup(DetectLandmarks):
         eyes_points = liner.split('\n\n')
         self.__create_eye_liner(eyes_points)
         self.im_copy = cv2.cvtColor(self.im_copy, cv2.COLOR_BGR2RGB)
-        name = '_color_' + str(self.red_l) + '_' + str(self.green_l) + '_' + str(self.blue_l)
+        UPLOAD_FOLDER = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\tmp_images'
+        ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+        name = 'apply_eyeliner'
         file_name = 'output_' + name + '.jpg'
-        #cv2.imwrite(file_name, self.im_copy)
+        path = os.path.join(UPLOAD_FOLDER,file_name)
+        cv2.imwrite(path, self.im_copy)
         return file_name

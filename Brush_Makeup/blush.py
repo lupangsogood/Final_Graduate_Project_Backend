@@ -6,6 +6,7 @@ import dlib
 from imutils import face_utils
 import imutils
 import numpy as np
+import os
 
 
 class BrushMakeup_class():
@@ -160,18 +161,18 @@ class BrushMakeup_class():
             points = np.array([[x11,x12],[y11,y12],[w11,w12],[h11,h12]])
 
             #cv2.circle(im,(int(x2),int(test)),3,(0, 255, 0), -1)
-            cv2.circle(self.im,(int(x11),int(x12)),3,(0, 255, 0), -1)
-            cv2.circle(self.im,(y11,int(y12)),3,(255, 0, 0), -1)
-            cv2.circle(self.im,(w11,int(w12)),3,(255, 0, 255), -1)
-            cv2.circle(self.im,(int(h11),h12),3,(0, 0, 255), -1)
+            ##cv2.circle(self.im,(int(x11),int(x12)),3,(0, 255, 0), -1)
+            ##cv2.circle(self.im,(y11,int(y12)),3,(255, 0, 0), -1)
+            ##cv2.circle(self.im,(w11,int(w12)),3,(255, 0, 255), -1)
+            ##cv2.circle(self.im,(int(h11),h12),3,(0, 0, 255), -1)
             #cv2.circle(im,(464,522),3,(0, 0, 255), -1)
 
 
             
-            cv2.imshow("display",self.im)
-            cv2.waitKey(0)
-            cv2.imshow("ROI",ROI)
-            cv2.waitKey(0)
+            #cv2.imshow("display",self.im)
+            #cv2.waitKey(0)
+            #cv2.imshow("ROI",ROI)
+            #cv2.waitKey(0)
         x, y = points[0:5, 0], points[0:5, 1]
         x, y = self.get_boundary_points(x, y)
         self.apply_blush_color()
@@ -181,13 +182,11 @@ class BrushMakeup_class():
         figure()
         print("TEST_imOrg")
         print(self.imOrg.shape[0:2])
-        #cv2.imshow("DISPLAY",imOrg)
-        plt.imshow(self.imOrg)
-        cv2.waitKey(0)
-        name = '_color_' + str(self.Rg) + '_' + str(self.Gg) + '_' + str(self.Bg)
+        UPLOAD_FOLDER = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\tmp_images'
+        ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+        name = 'apply_blush'
         file_name = 'output_' + name + '.jpg'
-        imsave('output.jpg', self.imOrg)
-        show()
+        path = os.path.join(UPLOAD_FOLDER,file_name)
         imOrg = cv2.cvtColor(self.imOrg,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,self.imOrg)
+        cv2.imwrite(path,self.imOrg)
         return file_name

@@ -3,6 +3,7 @@ from scipy.interpolate import interp1d
 from skimage import color
 import cv2
 import dlib
+import os
 
 class LipMakeup_class():
     
@@ -151,11 +152,14 @@ class LipMakeup_class():
 
         imOrg[self.x, self.y] = color.lab2rgb(val.reshape(len(self.x), 1, 3)).reshape(len(self.x), 3) * 255
         gca().set_aspect('equal', adjustable='box')
-        imshow(imOrg)
-        show()
+        #imshow(imOrg)
+        #show()
         #imsave('output.jpg', im)
-        name = '_color_' + str(self.Rg) + '_' + str(self.Gg) + '_' + str(self.Bg)
-        file_name = 'FILE_OUTPUT' + name + '.jpg'
+        UPLOAD_FOLDER = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\tmp_images'
+        ALLOWED_EXTENSIONS = set(['txt', 'pdf', 'png', 'jpg', 'jpeg', 'gif'])
+        name = 'apply_lipstick'
+        file_name = 'output_' + name + '.jpg'
+        path = os.path.join(UPLOAD_FOLDER,file_name)
         imOrg = cv2.cvtColor(imOrg,cv2.COLOR_BGR2RGB)
-        cv2.imwrite(file_name,imOrg)
+        cv2.imwrite(path,imOrg)
         return file_name
