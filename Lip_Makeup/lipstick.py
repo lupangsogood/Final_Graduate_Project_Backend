@@ -144,7 +144,7 @@ class LipMakeup_class():
 
         val = color.rgb2lab((imOrg[self.x, self.y] / 255.).reshape(len(self.x), 1, 3)).reshape(len(self.x), 3)
         L, A, B = mean(val[:, 0]), mean(val[:, 1]), mean(val[:, 2])
-        L1, A1, B1 = color.rgb2lab(np.array((r / 255., g / 255., b / 255.)).reshape(1, 1, 3)).reshape(3, )
+        L1, A1, B1 = color.rgb2lab(np.array((self.Rg/300., self.Gg/300. , self.Bg/300. )).reshape(1, 1, 3)).reshape(3, )
         ll, aa, bb = L1 - L, A1 - A, B1 - B
         val[:, 0] += ll
         val[:, 1] += aa
