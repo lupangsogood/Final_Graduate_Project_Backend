@@ -17,36 +17,41 @@ class simulate_makeup():
         self.Rl = 0
         self.Gl = 0
         self.Bl = 0
+        self.eyeBrowL = 0
+        self.eyeBrowR = 0
 
 
     def brush_color(self,type_id,style_id):
        
         if type_id == "1":
             if style_id == "1":
-                self.Rb = 192
-                self.Gb = 131
-                self.Bb = 114
+                self.Rb = 131
+                self.Gb = 86
+                self.Bb = 101
+
+                self.eyeBrowR = "testjangmakR1.jpg"
+                self.eyeBrowL = "testjangmakL1.jpg"
             elif style_id =="2":
-                self.Rb = 194
-                self.Gb = 133
-                self.Bb = 218
+                self.Rb = 223
+                self.Gb = 169
+                self.Bb = 144
             elif style_id =="3":
-                self.Rb = 252
-                self.Gb = 177
-                self.Bb = 147
+                self.Rb = 196
+                self.Gb = 119
+                self.Bb = 133
         elif type_id == "2":
                 if style_id =="1":
-                    self.Rb = 131
-                    self.Gb = 86
-                    self.Bb = 101
+                    self.Rb = 192
+                    self.Gb = 131
+                    self.Bb = 114
                 elif style_id =="2":
-                    self.Rb = 223
-                    self.Gb = 169
-                    self.Bb = 144
+                    self.Rb = 194
+                    self.Gb = 133
+                    self.Bb = 218
                 elif style_id =="3":
-                    self.Rb = 196
-                    self.Gb = 119
-                    self.Bb = 133
+                    self.Rb = 252
+                    self.Gb = 177
+                    self.Bb = 147
         elif type_id == "3":
                 if style_id =="1":
                     self.Rb = 252
@@ -82,30 +87,30 @@ class simulate_makeup():
 
         if type_id == "1":
             if style_id == "1":
-                self.Rl = 175
-                self.Gl = 66
-                self.Bl = 68
+                self.Rl = 107
+                self.Gl = 65
+                self.Bl = 77
             elif style_id =="2":
-                self.Rl = 177
-                self.Gl = 109
-                self.Bl = 162
+                self.Rl = 215
+                self.Gl = 140
+                self.Bl = 151
             elif style_id =="3":
-                self.Rl = 188
-                self.Gl = 82
-                self.Bl = 80
+                self.Rl = 174
+                self.Gl = 38
+                self.Bl = 51
         elif type_id == "2":
                 if style_id =="1":
-                    self.Rl = 107
+                    self.Rl = 175
                     self.Gl = 65
-                    self.Bl = 77
+                    self.Bl = 68
                 elif style_id =="2":
-                    self.Rl = 215
-                    self.Gl = 140
-                    self.Bl = 151
+                    self.Rl = 177
+                    self.Gl = 109
+                    self.Bl = 162
                 elif style_id =="3":
-                    self.Rl = 174
-                    self.Gl = 38
-                    self.Bl = 51
+                    self.Rl = 188
+                    self.Gl = 82
+                    self.Bl = 80
         elif type_id == "3":
                 if style_id =="1":
                     self.Rl = 253
@@ -142,7 +147,8 @@ class simulate_makeup():
 
         self.brush_color(type_id,style_id)
         self.lipstick_color(type_id,style_id)
-
+        path_eyebrown_L = os.path.join("C:\\Users\\comsc\\AppData\\Local\Programs\\Python\\Python36\\Project_senior\\drawable", self.eyeBrowL)
+        path_eyebrown_R = os.path.join("C:\\Users\\comsc\\AppData\\Local\Programs\\Python\\Python36\\Project_senior\\drawable", self.eyeBrowR)
         Rb = self.Rb
         Gb = self.Gb
         Bb = self.Bb
@@ -160,8 +166,8 @@ class simulate_makeup():
             '''
         #----------------------------------FOR COMPUTER_SERVER ----------------------------------------#
         #path_image = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\images_intput\\input14.jpg'
-        path_eyebrown_R = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\drawable\\testjangmakR1.jpg'
-        path_eyebrown_L = 'C:\\Users\\comsc\\AppData\\Local\\Programs\\Python\\Python36\\Project_senior\\drawable\\testjangmakL1.jpg'
+        path_eyebrown_R = path_eyebrown_R
+        path_eyebrown_L = path_eyebrown_L
 
         self.image_path = imagepath
         print(self.image_path)
