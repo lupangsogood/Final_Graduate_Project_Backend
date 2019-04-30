@@ -29,59 +29,92 @@ class simulate_makeup():
                 self.Gb = 86
                 self.Bb = 101
 
-                self.eyeBrowR = "testjangmakR1.jpg"
-                self.eyeBrowL = "testjangmakL1.jpg"
+                self.eyeBrowR = "1_1_R.jpg"
+                self.eyeBrowL = "1_1_L.jpg"
             elif style_id =="2":
                 self.Rb = 223
                 self.Gb = 169
                 self.Bb = 144
+
+                self.eyeBrowR = "1_2_R.jpg"
+                self.eyeBrowL = "1_2_L.jpg"
             elif style_id =="3":
                 self.Rb = 196
                 self.Gb = 119
                 self.Bb = 133
+
+                self.eyeBrowR = "1_3_R.jpg"
+                self.eyeBrowL = "1_3_L.jpg"
         elif type_id == "2":
                 if style_id =="1":
                     self.Rb = 192
                     self.Gb = 131
                     self.Bb = 114
+
+                    self.eyeBrowR = "2_1_R.jpg"
+                    self.eyeBrowL = "2_1_L.jpg"
                 elif style_id =="2":
                     self.Rb = 194
                     self.Gb = 133
                     self.Bb = 218
+
+                    self.eyeBrowR = "2_2_R.jpg"
+                    self.eyeBrowL = "2_2_L.jpg"
                 elif style_id =="3":
                     self.Rb = 252
                     self.Gb = 177
                     self.Bb = 147
+
+                    self.eyeBrowR = "2_3_R.jpg"
+                    self.eyeBrowL = "2_3_L.jpg"
         elif type_id == "3":
                 if style_id =="1":
                     self.Rb = 252
                     self.Gb = 187
                     self.Bb = 154
+
+                    self.eyeBrowR = "3_1_R.jpg"
+                    self.eyeBrowL = "3_1_L.jpg"
                 elif style_id =="2":
                     self.Rb = 184
                     self.Gb = 117
                     self.Bb = 122
+
+                    self.eyeBrowR = "3_2_R.jpg"
+                    self.eyeBrowL = "3_2_L.jpg"
                 elif style_id =="3":
                     self.Rb = 177
                     self.Gb = 105
                     self.Bb = 104
+
+                    self.eyeBrowR = "3_3_R.jpg"
+                    self.eyeBrowL = "3_3_L.jpg"
         elif type_id == "4":
                 if style_id =="1":
                     self.Rb = 193
                     self.Gb = 121
                     self.Bb = 77
+
+                    self.eyeBrowR = "4_1_R.jpg"
+                    self.eyeBrowL = "4_1_L.jpg"
                 elif style_id =="2":
                     self.Rb = 238
                     self.Gb = 180
                     self.Bb = 162
+
+                    self.eyeBrowR = "4_2_R.jpg"
+                    self.eyeBrowL = "4_2_L.jpg"
                 elif style_id =="3":
                     self.Rb = 240
                     self.Gb = 157
                     self.Bb = 152
+
+                    self.eyeBrowR = "4_3_R.jpg"
+                    self.eyeBrowL = "4_3_L.jpg"
         else:
-            self.Rb = 192
-            self.Gb = 131
-            self.Bb = 114
+            self.Rb = 0
+            self.Gb = 0
+            self.Bb = 0
 
     def lipstick_color(self,type_id,style_id):
 
@@ -126,21 +159,21 @@ class simulate_makeup():
                     self.Bl = 64
         elif type_id == "4":
                 if style_id =="1":
-                    self.Rl = 174
-                    self.Gl = 46
-                    self.Bl = 61
-                elif style_id =="2":
-                    self.Rl = 221
-                    self.Gl = 165
-                    self.Bl = 135
-                elif style_id =="3":
                     self.Rl = 250
                     self.Gl = 135
                     self.Bl = 156
+                elif style_id =="2":
+                    self.Rl = 221
+                    self.Gl = 135
+                    self.Bl = 135
+                elif style_id =="3":
+                    self.Rl = 174
+                    self.Gl = 46
+                    self.Bl = 61
         else:
-            self.Rl = 175
-            self.Gl = 66
-            self.Bl = 68
+            self.Rl = 0
+            self.Gl = 0
+            self.Bl = 0
 
  
     def get_makeup(self,imagepath,type_id,style_id):
